@@ -3,6 +3,7 @@
 # Gundam Tracker API
 /GundamTracker/node_modules/
 
+# Gundam Tracker React App
 # dependencies
 /gundamtrackerreact/node_modules
 /gundamtrackerreact/.pnp
