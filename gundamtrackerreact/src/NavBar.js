@@ -5,7 +5,7 @@ const NavBar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <span className="navbar-brand title" href="#">
-        Gundam Tracker
+        Todo Tracker
       </span>
       <button
         className="navbar-toggler"

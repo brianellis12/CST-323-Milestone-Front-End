@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import dataSource from './dataSource';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import SearchGundam from './SearchGundam';
+import SearchTodo from './SearchTodo';
 import NavBar from './NavBar';
-import EditGundam from './EditGundam';
-import OneGundam from './OneGundam';
+import EditTodo from './EditTodo';
+import OneTodo from './OneTodo';
 
 const App = () => {
   // constant useState variables
-  const [gundamList, setGundamList] = useState([]);
+  const [todoList, setTodoList] = useState([]);
   const [searchPhrase, setSearchPhrase] = useState("");
-  const [selectedGundamId, setSelectedGundamId] = useState(0);
+  const [selectedTodoId, setSelectedTodoId] = useState(0);
 
   let refresh = false;
 
@@ -21,22 +21,22 @@ const App = () => {
     setSearchPhrase(phrase);
   };
 
-  // get list of models
+  // get list of todos
   useEffect(() => {
-    loadGundam();
+    loadTodo();
   }, [refresh]);
 
   // send get request to API
-  const loadGundam = async () => {
-    const response = await dataSource.get("/models");
+  const loadTodo = async () => {
+    const response = await dataSource.get("/todos");
 
-    setGundamList(response.data);
+    setTodoList(response.data);
   };
 
-  // return models matching search term
-  const renderedList = gundamList.filter((gundam) => {
+  // return todos matching search term
+  const renderedList = todoList.filter((todo) => {
     if (
-      gundam.modelName.toLowerCase().includes(searchPhrase.toLowerCase()) ||
+      todo.modelName.toLowerCase().includes(searchPhrase.toLowerCase()) ||
       searchPhrase === ""
     ) {
       return true;
@@ -45,22 +45,22 @@ const App = () => {
   });
 
   // pull data from a single model
-  const updateSingleGundam = (id, navigate, uri) => {
-    console.log('Update Single Gundam = ', id);
-    console.log('Update Single Gundam = ', navigate);
+  const updateSingleTodo = (id, navigate, uri) => {
+    console.log('Update Single Todo = ', id);
+    console.log('Update Single Todo = ', navigate);
     var indexNumber = 0;
-    for (var i = 0; i < gundamList.length; ++i) {
-      if(gundamList[i].modelId === id) indexNumber = i;
+    for (var i = 0; i < todoList.length; ++i) {
+      if(todoList[i].modelId === id) indexNumber = i;
     }
-    setSelectedGundamId(indexNumber);
+    setSelectedTodoId(indexNumber);
     let path = uri + indexNumber;
     console.log('path' + path);
     navigate(path);
   }
 
   // navigate to home after editing a model
-  const onEditGundam = (navigate) => {
-    loadGundam();
+  const onEditTodo = (navigate) => {
+    loadTodo();
     navigate("/");
   }
 
@@ -70,10 +70,10 @@ const App = () => {
     <BrowserRouter>
       <NavBar />
       <Routes>
-        <Route exact path="/" element={<SearchGundam updateSearchResults={updateSearchResults} gundamList={renderedList} updateSingleGundam={updateSingleGundam} />} />
-        <Route exact path="/new" element={<EditGundam onEditGundam={onEditGundam} />} />
-        <Route exact path="/edit/:modelId" element={<EditGundam onEditGundam={onEditGundam} gundam={gundamList[selectedGundamId]} />} />
-        <Route exact path="/show/:modelId" element={<OneGundam gundam={gundamList[selectedGundamId]} />} />
+        <Route exact path="/" element={<SearchTodo updateSearchResults={updateSearchResults} todoList={renderedList} updateSingleTodo={updateSingleTodo} />} />
+        <Route exact path="/new" element={<EditTodo onEditTodo={onEditTodo} />} />
+        <Route exact path="/edit/:modelId" element={<EditTodo onEditTodo={onEditTodo} todo={todoList[selectedTodoId]} />} />
+        <Route exact path="/show/:modelId" element={<OneTodo todo={todoList[selectedTodoId]} />} />
       </Routes>
     </BrowserRouter>
   );
