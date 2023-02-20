@@ -9,26 +9,34 @@ const TodoList = (props) => {
     props.onClick(todoId, navigator, uri);
   };
 
+  const handleComplete = (todoId) => {
+    console.log('todo on complete called');
+    props.onComplete(todoId);
+  };
+
   console.log("props todoList", props);
 
   // setup navigation
   const navigator = useNavigate();
 
   // create object list through mapping properties
-  const todoModels = props.todoList.map((todo) => {
-    return (
-      <Card
-      key={todo.id}
-      id={todo.id}
-      title={todo.title}
-      description={todo.description}
-      timestamp={todo.timestamp}
-      isCompleted={todo.isCompleted}
-      buttonText="Complete"
-      onClick={handleSelectionOne}
-    />
-    );
-  });
+  // sort by completion status
+  const todoModels = props.todoList
+    .sort((a, b) => a.isCompleted - b.isCompleted)
+    .map((todo) => {
+      return (
+        <Card
+          key={todo.id}
+          id={todo.id}
+          title={todo.title}
+          description={todo.description}
+          timestamp={todo.timestamp}
+          isCompleted={todo.isCompleted}
+          onClick={handleSelectionOne}
+          onComplete={handleComplete}
+        />
+      );
+    });
   return <div className="container">{todoModels}</div>;
 };
 

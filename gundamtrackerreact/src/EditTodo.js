@@ -47,6 +47,14 @@ const EditTodo = (props) => {
 
   // send post or put based on newTodoCreation
   const saveTodo = async (todo) => {
+    // Set todo timestamp
+    todo.timestamp = new Date().getTime();
+
+    // Default is completed to false
+    if (todo.isCompleted === undefined) todo.isCompleted = false;
+
+    console.log(todo);
+
     let response;
     if (newTodoCreation)
       response = await dataSource.post('/todos', todo);
@@ -68,9 +76,6 @@ const EditTodo = (props) => {
   const updateDescription = (event) => {
     setDescription(event.target.value);
   };
-  const updateTimestamp = (event) => {
-    setTimestamp(event.target.value);
-  };
   const udpateIsCompleted = (event) => {
     console.log("changed completed");
     setIsCompleted(event.target.checked);
@@ -86,8 +91,6 @@ const EditTodo = (props) => {
           <input type="text" className="form-control" id="title" placeholder="Enter Title" value={title} onChange={updateTitle} />
           <label htmlFor="description">Description</label>
           <input type="text" className="form-control" id="description" placeholder="Enter Description" value={description} onChange={updateDescription} />
-          <label htmlFor="timestamp">Time Stamp</label>
-          <input type="text" className="form-control" id="timestamp" placeholder="Enter Timestamp" value={timestamp} onChange={updateTimestamp} />
           <input type="checkbox" className="form-check-input" id="isCompleted" defaultChecked={isCompleted} onChange={udpateIsCompleted} />
           <label className="form-check-label" htmlFor="isCompleted">Is Completed?</label>
         </div>

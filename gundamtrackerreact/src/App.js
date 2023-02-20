@@ -58,6 +58,27 @@ const App = () => {
     navigate(path);
   }
 
+  const onComplete = async (id) => {
+
+    let response = await dataSource.get('/todos/' + id);
+
+    let todo = response.data;
+
+    console.log(1);
+    console.log(todo);
+
+    todo.isCompleted = true;
+
+    console.log('*** UPDATED TODO ***');
+    console.log(todo);
+
+    let updateResponse = await dataSource.put('/todos', todo);
+
+    console.log('Complete Response = ' + updateResponse);
+
+    loadTodo();
+  }
+
   // navigate to home after editing a model
   const onEditTodo = (navigate) => {
     loadTodo();
@@ -70,7 +91,7 @@ const App = () => {
     <BrowserRouter>
       <NavBar />
       <Routes>
-        <Route exact path="/" element={<SearchTodo updateSearchResults={updateSearchResults} todoList={renderedList} updateSingleTodo={updateSingleTodo} />} />
+        <Route exact path="/" element={<SearchTodo updateSearchResults={updateSearchResults} todoList={renderedList} updateSingleTodo={updateSingleTodo} onComplete={onComplete} />} />
         <Route exact path="/new" element={<EditTodo onEditTodo={onEditTodo} />} />
         <Route exact path="/edit/:id" element={<EditTodo onEditTodo={onEditTodo} todo={todoList[selectedTodoId]} />} />
         <Route exact path="/show/:id" element={<OneTodo todo={todoList[selectedTodoId]} />} />
