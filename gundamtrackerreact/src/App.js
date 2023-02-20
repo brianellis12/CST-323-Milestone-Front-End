@@ -73,6 +73,9 @@ const App = () => {
   }
 
   const onDelete = async (id) => {
+
+    console.log('Id to delete: ' + id);
+
     // Delete todo
     let response = await dataSource.delete('/todos/' + id);
 

@@ -1,19 +1,30 @@
 import React from "react";
 
 const Card = (props) => {
+
+  let modalCompleteId = "completeModal" + props.id;
+  let modalCompleteIdHash = "#" + modalCompleteId;
+  let modalCompleteLabelId = "completeModalLabel" + props.id;
+
+  let modalDeleteId = "deleteModal" + props.id;
+  let modalDeleteIdHash = "#" + modalDeleteId;
+  let modalDeleteLabelId = "deleteModalLabel" + props.id;
+
   // handle click event for selecting a card
   const viewCard = (event, uri) => {
     console.log(props);
     props.onClick(props.id, uri);
   }
 
-  const completeCard = (event) => {
+  const completeCard = () => {
     console.log('Card on complete called');
     props.onComplete(props.id)
   };
 
-  const deleteCard = (event) => {
-    console.log('Card on delete called');
+  const deleteCard = () => {
+    console.log('GOT DELETE');
+    console.log(props);
+    console.log('Card on delete called: ' + props.id);
     props.onDelete(props.id)
   };
 
@@ -34,7 +45,7 @@ const Card = (props) => {
           {/* Show buttons only if is completed is false */}
           {!props.isCompleted &&
             <>
-              <button type="button" className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#completeModal">
+              <button type="button" className="btn btn-warning" data-bs-toggle="modal" data-bs-target={modalCompleteIdHash}>
                 Complete
               </button>
 
@@ -45,16 +56,16 @@ const Card = (props) => {
           }
 
           {/* Delete button always shows */}
-          <button className="btn btn-outline-danger button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+          <button className="btn btn-outline-danger button" data-bs-toggle="modal" data-bs-target={modalDeleteIdHash}>Delete</button>
         </div>
       </div>
 
       {/* Modal popup */}
-      <div className="modal fade" id="completeModal" aria-labelledby="completeModalLabel" aria-hidden="true">
+      <div className="modal fade" id={modalCompleteId} aria-labelledby={modalCompleteLabelId} aria-hidden="true">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="completeModalLabel">Confirm Complete</h5>
+              <h5 className="modal-title" id={modalCompleteLabelId}>Confirm Complete</h5>
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
@@ -69,11 +80,11 @@ const Card = (props) => {
       </div>
 
       {/* Modal popup */}
-      <div className="modal fade" id="deleteModal" aria-labelledby="deleteModalLabel" aria-hidden="true">
+      <div className="modal fade" id={modalDeleteId} aria-labelledby={modalDeleteLabelId} aria-hidden="true">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+              <h5 className="modal-title" id={modalDeleteLabelId}>Confirm Delete</h5>
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
