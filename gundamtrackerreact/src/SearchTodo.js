@@ -11,6 +11,7 @@ const SearchAlbum = (props) => {
         todoList={props.todoList}
         onClick={props.updateSingleTodo}
         onComplete={props.onComplete}
+        onDelete={props.onDelete}
       />
     </div>
   );

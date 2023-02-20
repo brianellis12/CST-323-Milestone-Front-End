@@ -14,6 +14,11 @@ const TodoList = (props) => {
     props.onComplete(todoId);
   };
 
+  const handleDelete = (todoId) => {
+    console.log('todo on delete called');
+    props.onDelete(todoId);
+  };
+
   console.log("props todoList", props);
 
   // setup navigation
@@ -34,6 +39,7 @@ const TodoList = (props) => {
           isCompleted={todo.isCompleted}
           onClick={handleSelectionOne}
           onComplete={handleComplete}
+          onDelete={handleDelete}
         />
       );
     });

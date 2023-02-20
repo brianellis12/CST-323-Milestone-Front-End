@@ -12,6 +12,11 @@ const Card = (props) => {
     props.onComplete(props.id)
   };
 
+  const deleteCard = (event) => {
+    console.log('Card on delete called');
+    props.onDelete(props.id)
+  };
+
   const style = {
     backgroundColor: props.isCompleted ? "darkgray" : "white",
     width: "18rem"
@@ -29,7 +34,7 @@ const Card = (props) => {
           {/* Show buttons only if is completed is false */}
           {!props.isCompleted &&
             <>
-              <button type="button" className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#confirmModal">
+              <button type="button" className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#completeModal">
                 Complete
               </button>
 
@@ -38,15 +43,18 @@ const Card = (props) => {
               </button>
             </>
           }
+
+          {/* Delete button always shows */}
+          <button className="btn btn-outline-danger button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
         </div>
       </div>
 
       {/* Modal popup */}
-      <div className="modal fade" id="confirmModal" aria-labelledby="confirmModalLabel" aria-hidden="true">
+      <div className="modal fade" id="completeModal" aria-labelledby="completeModalLabel" aria-hidden="true">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="confirmModalLabel">Confirm Complete</h5>
+              <h5 className="modal-title" id="completeModalLabel">Confirm Complete</h5>
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
@@ -55,6 +63,25 @@ const Card = (props) => {
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
               <button type="button" className="btn btn-warning" data-bs-dismiss="modal" onClick={() => completeCard()}>Confirm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Modal popup */}
+      <div className="modal fade" id="deleteModal" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+              Are you sure, sir, you want to delete this task?
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" className="btn btn-warning" data-bs-dismiss="modal" onClick={() => deleteCard()}>Confirm</button>
             </div>
           </div>
         </div>

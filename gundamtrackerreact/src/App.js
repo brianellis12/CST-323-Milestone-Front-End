@@ -59,23 +59,25 @@ const App = () => {
   }
 
   const onComplete = async (id) => {
-
+    // Get todo
     let response = await dataSource.get('/todos/' + id);
-
     let todo = response.data;
 
-    console.log(1);
-    console.log(todo);
-
+    // Set compeleted
     todo.isCompleted = true;
 
-    console.log('*** UPDATED TODO ***');
-    console.log(todo);
-
+    // Update todo
     let updateResponse = await dataSource.put('/todos', todo);
 
-    console.log('Complete Response = ' + updateResponse);
+    // Refresh list
+    loadTodo();
+  }
 
+  const onDelete = async (id) => {
+    // Delete todo
+    let response = await dataSource.delete('/todos/' + id);
+
+    // Refresh list
     loadTodo();
   }
 
@@ -91,7 +93,7 @@ const App = () => {
     <BrowserRouter>
       <NavBar />
       <Routes>
-        <Route exact path="/" element={<SearchTodo updateSearchResults={updateSearchResults} todoList={renderedList} updateSingleTodo={updateSingleTodo} onComplete={onComplete} />} />
+        <Route exact path="/" element={<SearchTodo updateSearchResults={updateSearchResults} todoList={renderedList} updateSingleTodo={updateSingleTodo} onComplete={onComplete} onDelete={onDelete} />} />
         <Route exact path="/new" element={<EditTodo onEditTodo={onEditTodo} />} />
         <Route exact path="/edit/:id" element={<EditTodo onEditTodo={onEditTodo} todo={todoList[selectedTodoId]} />} />
         <Route exact path="/show/:id" element={<OneTodo todo={todoList[selectedTodoId]} />} />
