@@ -5,7 +5,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SearchTodo from './SearchTodo';
 import NavBar from './NavBar';
 import EditTodo from './EditTodo';
-import OneTodo from './OneTodo';
 
 const App = () => {
   // constant useState variables
@@ -96,7 +95,6 @@ const App = () => {
         <Route exact path="/" element={<SearchTodo updateSearchResults={updateSearchResults} todoList={renderedList} updateSingleTodo={updateSingleTodo} onComplete={onComplete} onDelete={onDelete} />} />
         <Route exact path="/new" element={<EditTodo onEditTodo={onEditTodo} />} />
         <Route exact path="/edit/:id" element={<EditTodo onEditTodo={onEditTodo} todo={todoList[selectedTodoId]} />} />
-        <Route exact path="/show/:id" element={<OneTodo todo={todoList[selectedTodoId]} />} />
       </Routes>
     </BrowserRouter>
   );
