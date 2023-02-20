@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import dataSource from "./dataSource";
 
-const OneGundam = (props) => {
+const Todo = (props) => {
   // setup navigation for page
   const navigate = useNavigate();
 
@@ -13,9 +13,9 @@ const OneGundam = (props) => {
   };
 
   // send delete request to API and refresh page
-  const deleteCard = async (gundamId) => {
+  const deleteCard = async (todoId) => {
     let response;
-    response = await dataSource.delete('/models/' + gundamId);
+    response = await dataSource.delete('/todos/' + todoId);
     console.log(response);
     console.log(response.data);
     navigate("/");
@@ -31,22 +31,17 @@ const OneGundam = (props) => {
     <div>
       <br/>
       <div className="container">
-        <h2>Model Details for "{props.gundam.modelName}"</h2>
+        <h2>Model Details for "{props.todo.title}"</h2>
         <div className="row">
           <div className="col col-sm-3">
             <div className="card">
-              <img
-                src={props.gundam.image}
-                className="card-img-top"
-                alt={props.gundam.modelName}
-              />
               <div className="card-body">
-                <h5 className="card-title">{props.gundam.modelName}</h5>
-                <p className="card-text">{props.gundam.grade}</p>
-                <button onClick={() => viewCard(props.modelId, '/edit/')} className="btn btn-primary button">
+                <h5 className="card-title">{props.todo.title}</h5>
+                <p className="card-text">{props.todo.description}</p>
+                <button onClick={() => viewCard(props.id, '/edit/')} className="btn btn-primary button">
                   Edit
                 </button>
-                <button onClick={() => deleteCard(props.gundam.modelId)} className="btn btn-secondary button">
+                <button onClick={() => deleteCard(props.todo.id)} className="btn btn-secondary button">
                   Delete
                 </button>
                 <button type="button" className="btn btn-light button" onClick={handleCancel}>Cancel</button>
@@ -55,11 +50,10 @@ const OneGundam = (props) => {
           </div>
           <div className="col col-sm-9">
             <div className="card">
-              <p className="card-text">Origin: {props.gundam.origin}</p>
+              <p className="card-text">Set on: {props.todo.timestamp}</p>
             </div>
             <div className="card">
-              <p className="card-text">Purchased On: {props.gundam.purchaseDate.substring(0,10)}</p>
-              <p className="card-text">Price: {props.gundam.price}</p>
+              <p className="card-text">Completed?: {props.todo.isCompleted}</p>
             </div>
           </div>
         </div>
@@ -68,4 +62,4 @@ const OneGundam = (props) => {
   );
 };
 
-export default OneGundam;
+export default Todo;
