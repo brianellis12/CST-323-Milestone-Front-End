@@ -36,7 +36,7 @@ const App = () => {
   // return todos matching search term
   const renderedList = todoList.filter((todo) => {
     if (
-      todo.modelName.toLowerCase().includes(searchPhrase.toLowerCase()) ||
+      todo.title.toLowerCase().includes(searchPhrase.toLowerCase()) ||
       searchPhrase === ""
     ) {
       return true;
@@ -44,13 +44,13 @@ const App = () => {
     return false;
   });
 
-  // pull data from a single model
+  // pull data from a single todo
   const updateSingleTodo = (id, navigate, uri) => {
     console.log('Update Single Todo = ', id);
     console.log('Update Single Todo = ', navigate);
     var indexNumber = 0;
     for (var i = 0; i < todoList.length; ++i) {
-      if(todoList[i].modelId === id) indexNumber = i;
+      if(todoList[i].id === id) indexNumber = i;
     }
     setSelectedTodoId(indexNumber);
     let path = uri + indexNumber;
@@ -72,8 +72,8 @@ const App = () => {
       <Routes>
         <Route exact path="/" element={<SearchTodo updateSearchResults={updateSearchResults} todoList={renderedList} updateSingleTodo={updateSingleTodo} />} />
         <Route exact path="/new" element={<EditTodo onEditTodo={onEditTodo} />} />
-        <Route exact path="/edit/:modelId" element={<EditTodo onEditTodo={onEditTodo} todo={todoList[selectedTodoId]} />} />
-        <Route exact path="/show/:modelId" element={<OneTodo todo={todoList[selectedTodoId]} />} />
+        <Route exact path="/edit/:id" element={<EditTodo onEditTodo={onEditTodo} todo={todoList[selectedTodoId]} />} />
+        <Route exact path="/show/:id" element={<OneTodo todo={todoList[selectedTodoId]} />} />
       </Routes>
     </BrowserRouter>
   );

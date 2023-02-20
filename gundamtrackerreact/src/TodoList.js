@@ -24,7 +24,7 @@ const TodoList = (props) => {
       description={todo.description}
       timestamp={todo.timestamp}
       isCompleted={todo.isCompleted}
-      buttonText="View"
+      buttonText="Complete"
       onClick={handleSelectionOne}
     />
     );

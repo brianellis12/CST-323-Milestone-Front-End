@@ -7,7 +7,7 @@ const EditTodo = (props) => {
   let todo = {
     title: '',
     description: '',
-    timestamp: '',
+    timestamp: 0,
     isCompleted: false,
   };
 
@@ -72,7 +72,9 @@ const EditTodo = (props) => {
     setTimestamp(event.target.value);
   };
   const udpateIsCompleted = (event) => {
-    setIsCompleted(event.target.value);
+    console.log("changed completed");
+    setIsCompleted(event.target.checked);
+    console.log(isCompleted);
   };
 
   return (
@@ -86,7 +88,7 @@ const EditTodo = (props) => {
           <input type="text" className="form-control" id="description" placeholder="Enter Description" value={description} onChange={updateDescription} />
           <label htmlFor="timestamp">Time Stamp</label>
           <input type="text" className="form-control" id="timestamp" placeholder="Enter Timestamp" value={timestamp} onChange={updateTimestamp} />
-          <input type="checkbox" className="form-check-input" id="isCompleted" value={isCompleted} onChange={udpateIsCompleted} />
+          <input type="checkbox" className="form-check-input" id="isCompleted" defaultChecked={isCompleted} onChange={udpateIsCompleted} />
           <label className="form-check-label" htmlFor="isCompleted">Is Completed?</label>
         </div>
         <div align="center">
