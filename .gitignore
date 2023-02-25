@@ -1,8 +1,7 @@
 node_modules/
 .elasticbeanstalk/
 .vscode/
-.build/
-.build/*
+build/
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
