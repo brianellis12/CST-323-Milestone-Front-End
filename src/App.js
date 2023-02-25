@@ -49,7 +49,7 @@ const App = () => {
     console.log('Update Single Todo = ', navigate);
     var indexNumber = 0;
     for (var i = 0; i < todoList.length; ++i) {
-      if(todoList[i].id === id) indexNumber = i;
+      if (todoList[i].id === id) indexNumber = i;
     }
     setSelectedTodoId(indexNumber);
     let path = uri + indexNumber;
@@ -92,14 +92,16 @@ const App = () => {
   console.log("renderedList", renderedList);
 
   return (
-    <BrowserRouter>
-      <NavBar />
-      <Routes>
-        <Route exact path="/" element={<SearchTodo updateSearchResults={updateSearchResults} todoList={renderedList} updateSingleTodo={updateSingleTodo} onComplete={onComplete} onDelete={onDelete} />} />
-        <Route exact path="/new" element={<EditTodo onEditTodo={onEditTodo} />} />
-        <Route exact path="/edit/:id" element={<EditTodo onEditTodo={onEditTodo} todo={todoList[selectedTodoId]} />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <NavBar />
+        <Routes>
+          <Route exact path="/" element={<SearchTodo updateSearchResults={updateSearchResults} todoList={renderedList} updateSingleTodo={updateSingleTodo} onComplete={onComplete} onDelete={onDelete} />} />
+          <Route exact path="/new" element={<EditTodo onEditTodo={onEditTodo} />} />
+          <Route exact path="/edit/:id" element={<EditTodo onEditTodo={onEditTodo} todo={todoList[selectedTodoId]} />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
