@@ -1,27 +1,2 @@
-#This gitignore file is written by Giovanni E. Martinez.
-
-# Gundam Tracker API
-/GundamTracker/node_modules/
-
-# Gundam Tracker React App
-# dependencies
-/gundamtrackerreact/node_modules
-/gundamtrackerreact/.pnp
-/gundamtrackerreact/.pnp.js
-
-# testing
-/gundamtrackerreact/coverage
-
-# production
-/gundamtrackerreact/build
-
-# misc
-/gundamtrackerreact/.DS_Store
-/gundamtrackerreact/.env.local
-/gundamtrackerreact/.env.development.local
-/gundamtrackerreact/.env.test.local
-/gundamtrackerreact/.env.production.local
-
-/gundamtrackerreact/npm-debug.log*
-/gundamtrackerreact/yarn-debug.log*
-/gundamtrackerreact/yarn-error.log*
+node_modules/
+.vscode/
