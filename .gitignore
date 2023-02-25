@@ -1,4 +1,5 @@
 node_modules/
+.elasticbeanstalk/
 .vscode/
 
 # Elastic Beanstalk Files
