@@ -5,8 +5,12 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SearchTodo from './SearchTodo';
 import NavBar from './NavBar';
 import EditTodo from './EditTodo';
+import logger from './services/LogglyService';
 
 const App = () => {
+
+  logger.info('App', 'App started');
+
   // constant useState variables
   const [todoList, setTodoList] = useState([]);
   const [searchPhrase, setSearchPhrase] = useState("");

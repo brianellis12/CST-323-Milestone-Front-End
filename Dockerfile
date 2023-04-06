@@ -17,8 +17,14 @@ COPY . .
 # Build production version
 RUN npm run build
 
+
+
+
 # Use nginx:alpine as base image for production
 FROM nginx:alpine
+
+# Copy nginx config file
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy build files to nginx html folder
 COPY --from=build /build/build /usr/share/nginx/html
