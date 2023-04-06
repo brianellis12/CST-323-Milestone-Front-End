@@ -6,6 +6,7 @@ import SearchTodo from './SearchTodo';
 import NavBar from './NavBar';
 import EditTodo from './EditTodo';
 import logger from './services/LogglyService';
+import { render } from '@testing-library/react';
 
 const App = () => {
 
@@ -20,24 +21,35 @@ const App = () => {
 
   // method to update list based on search results
   const updateSearchResults = (phrase) => {
-    console.log("Searching for: " + phrase);
+
+    // Enter log message
+    logger.info('App', 'Entered updateSearchResults()');
+
+    logger.info('App', `Searching for:  + ${phrase}`);
     setSearchPhrase(phrase);
+
+    // Exit log message
+    logger.info('App', 'Exited updateSearchResults()');
   };
 
   // get list of todos
   useEffect(() => {
+    logger.info('App', 'Entered useEffect()');
     loadTodo();
+    logger.info('App', 'Exited useEffect()');
   }, [refresh]);
 
   // send get request to API
   const loadTodo = async () => {
+    logger.info('App', 'Entered loadTodo()');
     const response = await dataSource.get("/todos");
-
     setTodoList(response.data);
+    logger.info('App', 'Exited loadTodo()');
   };
 
   // return todos matching search term
   const renderedList = todoList.filter((todo) => {
+    logger.info('App', 'Entered renderedList()');
     if (
       todo.title.toLowerCase().includes(searchPhrase.toLowerCase()) ||
       searchPhrase === ""
@@ -49,19 +61,27 @@ const App = () => {
 
   // pull data from a single todo
   const updateSingleTodo = (id, navigate, uri) => {
-    console.log('Update Single Todo = ', id);
-    console.log('Update Single Todo = ', navigate);
+
+    logger.info('App', 'Entered updateSingleTodo()');
+
+    logger.info('App', `Todo Id=${id}`);
     var indexNumber = 0;
     for (var i = 0; i < todoList.length; ++i) {
       if (todoList[i].id === id) indexNumber = i;
     }
     setSelectedTodoId(indexNumber);
     let path = uri + indexNumber;
-    console.log('path' + path);
+    logger.info('App', `Path: ${path}`);
     navigate(path);
+
+    logger.info('App', 'Exited updateSingleTodo()');
   }
 
   const onComplete = async (id) => {
+
+    // Entered log message
+    logger.info('App', 'Entered onComplete()');
+
     // Get todo
     let response = await dataSource.get('/todos/' + id);
     let todo = response.data;
@@ -74,26 +94,42 @@ const App = () => {
 
     // Refresh list
     loadTodo();
+
+    // Exit log message
+    logger.info('App', 'Exited onComplete()');
   }
 
   const onDelete = async (id) => {
 
-    console.log('Id to delete: ' + id);
+    // Enter log message
+    logger.info('App', 'Entered onDelete()');
+
+    logger.info('App', `Id to delete:  + ${id}`);
 
     // Delete todo
     let response = await dataSource.delete('/todos/' + id);
 
     // Refresh list
     loadTodo();
+
+    // Exit log message
+    logger.info('App', 'Exited onDelete()');
   }
 
   // navigate to home after editing a model
   const onEditTodo = (navigate) => {
+
+    // Enter log message
+    logger.info('App', 'Entered onEditTodo()');
+
     loadTodo();
     navigate("/");
+
+    // Exit log message
+    logger.info('App', 'Exited onEditTodo()');
   }
 
-  console.log("renderedList", renderedList);
+  logger.info('App', `Rendered List: ${renderedList}`);
 
   return (
     <>
