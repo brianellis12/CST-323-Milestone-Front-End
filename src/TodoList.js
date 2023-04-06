@@ -1,22 +1,26 @@
 import React from "react";
 import Card from "./card";
 import { useNavigate } from "react-router-dom";
+import logger from "./services/LogglyService";
 
 const TodoList = (props) => {
   // handle click event for selection
   const handleSelectionOne = (todoId, uri) => {
-    console.log("Selected ID is " + todoId);
+    logger.info("TodoList", `Entered handleSelectionOne() for ID of ${todoId}`);
     props.onClick(todoId, navigator, uri);
+    logger.info("TodoList", "Exited handleSelectionOne()");
   };
 
   const handleComplete = (todoId) => {
-    console.log('todo on complete called');
+    logger.info("TodoList", `Entered handleComplete() for ID of ${todoId}`);
     props.onComplete(todoId);
+    logger.info("TodoList", "Exited handleComplete()");
   };
 
   const handleDelete = (todoId) => {
-    console.log('todo on delete called');
+    logger.info("TodoList", `Entered handleDelete() for ID of ${todoId}`);
     props.onDelete(todoId);
+    logger.info("TodoList", "Exited handleDelete()");
   };
 
   console.log("props todoList", props);

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import logger from "./services/LogglyService";
 
 const SearchForm = (props) => {
   // input text from search
@@ -7,13 +8,15 @@ const SearchForm = (props) => {
   // change input text on change
   const handleChangeInput = (event) => {
     setInputText(event.target.value);
-    console.log(inputText);
   };
 
   // method for submitting search form
   const handleFormSubmit = (event) => {
+    logger.info("SearchForm", "Entered handleFormSubmit()");
     event.preventDefault();
+    logger.info("SearchForm", `Submitting form using ${inputText}`);
     props.onSubmit(inputText);
+    logger.info("SearchForm", "Exiting handleFormSubmit()");
   };
 
   return (

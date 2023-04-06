@@ -1,9 +1,10 @@
 import React from "react";
 import SearchForm from "./SearchForm";
 import TodoList from "./TodoList";
+import logger from "./services/LogglyService";
 
-const SearchAlbum = (props) => {
-  console.log("props with update single album", props);
+const SearchTodo = (props) => {
+  logger.info("SearchTodo", `Entered SearchTodo() with ${props}`);
   return (
     <div className="container">
       <SearchForm onSubmit={props.updateSearchResults} />
@@ -17,4 +18,4 @@ const SearchAlbum = (props) => {
   );
 };
 
-export default SearchAlbum;
+export default SearchTodo;
