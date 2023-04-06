@@ -1,4 +1,5 @@
 import React from "react";
+import logger from './services/LogglyService';
 
 const Card = (props) => {
 
@@ -12,20 +13,38 @@ const Card = (props) => {
 
   // handle click event for selecting a card
   const viewCard = (event, uri) => {
-    console.log(props);
+
+    // Log enter
+    logger.info('Card', 'Entered viewCard()');
+
+    // Debug props.log(props);
+    logger.debug('Card', `Props: ${JSON.stringify(props)}`);
     props.onClick(props.id, uri);
+
+    // Log exit
+    logger.info('Card', 'Exited viewCard()');
   }
 
   const completeCard = () => {
-    console.log('Card on complete called');
+    // Log enter
+    logger.info('Card', 'Entered completeCard()');
+
     props.onComplete(props.id)
+
+    // Log exit
+    logger.info('Card', 'Exited completeCard()');
   };
 
   const deleteCard = () => {
-    console.log('GOT DELETE');
-    console.log(props);
-    console.log('Card on delete called: ' + props.id);
+
+    // Log enter
+    logger.info('Card', 'Entered deleteCard()');
+
+    // Delete
     props.onDelete(props.id)
+
+    // Log exit
+    logger.info('Card', 'Exited deleteCard()');
   };
 
   const style = {

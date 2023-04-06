@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import dataSource from "./dataSource";
+import logger from './services/LogglyService';
 
 const EditTodo = (props) => {
   // todo default model
@@ -29,9 +30,12 @@ const EditTodo = (props) => {
 
   // method to submit form and object
   const handleFormSubmit = (event) => {
+
+    // Entered log message
+    logger.info('EditTodo', 'Entered handleFormSubmit()');
+
     event.preventDefault();
 
-    console.log("submit");
     const editedTodo = {
       id: todo.id,
       title: title,
@@ -39,30 +43,40 @@ const EditTodo = (props) => {
       timestamp: timestamp,
       isCompleted: isCompleted
     };
-    console.log(editedTodo);
 
+    logger.debug('EditTodo', `Edited Todo: ${JSON.stringify(editedTodo)}`);
     saveTodo(editedTodo);
+
+    // Exit log message
+    logger.info('EditTodo', 'Exited handleFormSubmit()');
   };
 
 
   // send post or put based on newTodoCreation
   const saveTodo = async (todo) => {
+
+    // Enter log message
+    logger.info('EditTodo', 'Entered saveTodo()');
+    
     // Set todo timestamp
     todo.timestamp = new Date().getTime();
 
     // Default is completed to false
     if (todo.isCompleted === undefined) todo.isCompleted = false;
 
-    console.log(todo);
+    logger.debug('EditTodo', todo);
 
     let response;
     if (newTodoCreation)
       response = await dataSource.post('/todos', todo);
     else
       response = await dataSource.put('/todos', todo);
-    console.log(response);
-    console.log(response.data);
+    logger.debug('EditTodo', response);
+    logger.debug('EditTodo', response.data);
     props.onEditTodo(navigate);
+
+    // Exit log message
+    logger.info('EditTodo', 'Exited saveTodo()');
   };
 
   // navigate to home
@@ -71,15 +85,20 @@ const EditTodo = (props) => {
   };
 
   const updateTitle = (event) => {
+    logger.info('EditTodo', 'Entered updateTitle()');
     setTitle(event.target.value);
+    logger.info('EditTodo', 'Exited updateTitle()');
   };
   const updateDescription = (event) => {
+    logger.info('EditTodo', 'Entered updateDescription()');
     setDescription(event.target.value);
+    logger.info('EditTodo', 'Exited updateDescription()');
   };
-  const udpateIsCompleted = (event) => {
-    console.log("changed completed");
+  const updateIsCompleted = (event) => {
+    logger.info('EditTodo', 'Entered updateIsCompleted()');
     setIsCompleted(event.target.checked);
-    console.log(isCompleted);
+    logger.debug('EditTodo', isCompleted);
+    logger.info('EditTodo', 'Exited updateIsCompleted()');
   };
 
   return (
@@ -91,7 +110,7 @@ const EditTodo = (props) => {
           <input type="text" className="form-control" id="title" placeholder="Enter Title" value={title} onChange={updateTitle} />
           <label htmlFor="description">Description</label>
           <input type="text" className="form-control" id="description" placeholder="Enter Description" value={description} onChange={updateDescription} />
-          <input type="checkbox" className="form-check-input" id="isCompleted" defaultChecked={isCompleted} onChange={udpateIsCompleted} />
+          <input type="checkbox" className="form-check-input" id="isCompleted" defaultChecked={isCompleted} onChange={updateIsCompleted} />
           <label className="form-check-label" htmlFor="isCompleted">Is Completed?</label>
         </div>
         <div align="center">
