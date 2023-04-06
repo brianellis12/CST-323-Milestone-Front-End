@@ -85,20 +85,13 @@ const EditTodo = (props) => {
   };
 
   const updateTitle = (event) => {
-    logger.info('EditTodo', 'Entered updateTitle()');
     setTitle(event.target.value);
-    logger.info('EditTodo', 'Exited updateTitle()');
   };
   const updateDescription = (event) => {
-    logger.info('EditTodo', 'Entered updateDescription()');
     setDescription(event.target.value);
-    logger.info('EditTodo', 'Exited updateDescription()');
   };
   const updateIsCompleted = (event) => {
-    logger.info('EditTodo', 'Entered updateIsCompleted()');
     setIsCompleted(event.target.checked);
-    logger.debug('EditTodo', isCompleted);
-    logger.info('EditTodo', 'Exited updateIsCompleted()');
   };
 
   return (
