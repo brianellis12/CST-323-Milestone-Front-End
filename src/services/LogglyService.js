@@ -60,4 +60,4 @@ const logger = {
 }
 
 // Export the logger
-export default logger;
+export default logger; 
